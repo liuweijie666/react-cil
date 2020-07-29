@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {notification,} from 'antd';
-import myBrowser from "../utils/judge"
+// import myBrowser from "../utils/judge"
 // axios.defaults.timeout = 5000; //设置超时
 axios.defaults.withCredentials = true;//携带Cookie
 axios.defaults.transformRequest = [function (data) {
@@ -11,11 +11,13 @@ axios.defaults.transformRequest = [function (data) {
     return ret
   }];
 axios.defaults.headers = {
-    'Content-Type': 'application/x-www-form-urlencoded'
+    'Content-Type': 'application/x-www-form-urlencoded',
+    'x-authentication-token':'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIwMTY2OTI2MjAxNDgzMjY0IiwibG4iOiJsdWppIiwiY29tcGFueUlkIjoyOSwidWkiOjMyLCJ0IjoiMTU5NjAxNjczODg5NyIsInRlbmFudHNJZCI6NCwicm9sZUlkIjo3MSwiZGVwdElkIjowLCJleHAiOjE1OTYxMTY3Mzh9.gzDxpjs1czqieL44s5p2LWetrllTbhqcWM_bj-5ZvVo'
 }
 axios.interceptors.request.use(function (config) {
     const _auth = localStorage.getItem('_auth')
-    const token = _auth && JSON.parse(_auth).token
+    // const token = _auth && JSON.parse(_auth).token
+    const token = 'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIwMTY2OTI2MjAxNDgzMjY0IiwibG4iOiJsdWppIiwiY29tcGFueUlkIjoyOSwidWkiOjMyLCJ0IjoiMTU5NjAxNjczODg5NyIsInRlbmFudHNJZCI6NCwicm9sZUlkIjo3MSwiZGVwdElkIjowLCJleHAiOjE1OTYxMTY3Mzh9.gzDxpjs1czqieL44s5p2LWetrllTbhqcWM_bj-5ZvVo'
     if(!token){
         return config
     }
@@ -69,12 +71,12 @@ axios.interceptors.response.use(response=>response, (err)=>{
             })  
         }
     }else{
-        if(!myBrowser()==undefined){
-            notification.error({
-                message: '错误信息',
-                description: err.message ? err.message :'连接服务器失败!'
-            })   
-        }
+        // if(!myBrowser()==undefined){
+        //     notification.error({
+        //         message: '错误信息',
+        //         description: err.message ? err.message :'连接服务器失败!'
+        //     })   
+        // }
     }
     //这里必须return,不然错误进入这里后，下次进入axios后就then里就返回的内容了
     return Promise.reject(err)

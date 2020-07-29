@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { observer, inject } from "mobx-react";
 import { Button, DatePicker } from "antd";
-
+import axios from "../utils/request"
 @inject("homeStore")
 @observer
 class Home extends Component {
@@ -11,7 +11,8 @@ class Home extends Component {
   }
 
   async componentDidMount(){
-    
+    let a = axios.post('/api/testlap/admin/api/ljDeviceType/list')
+    console.log(a)
   }
 
   render() {
